@@ -31,7 +31,7 @@ create table Member(
 
 fname= input('Enter the file name:')
 if len(fname)<1:
-    fname= 'roster_data_sample.json'
+    fname= 'roster_data_assign.json'
 
 cont= open(fname).read()
 lst= json.loads(cont)

@@ -73,9 +73,10 @@ for line in fh:
 
     cur.execute('''INSERT INTO Locations (address, geodata)
             VALUES ( ?, ? )''', (memoryview(address.encode()), memoryview(data.encode()) ) )
-    conn.commit()
-    if count % 10 == 0 :
-        print('Pausing for a bit...')
-        time.sleep(5)
 
+    if count % 20 == 0 :
+        conn.commit()
+        print('Pausing for a bit...')
+        time.sleep(2)
+conn.commit()
 print("Run geodump.py to read the data from the database so you can vizualize it on a map.")
