@@ -4,7 +4,7 @@ import ssl
 from urllib.parse import urljoin
 from urllib.parse import urlparse
 from urllib.request import urlopen
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup as bs4
 
 # Ignore SSL certificate errors
 ctx = ssl.create_default_context()
@@ -30,8 +30,10 @@ if row is not None:
     print("Restarting existing crawl.  Remove spider.sqlite to start a fresh crawl.")
 else :
     starturl = input('Enter web url or enter: ')
-    if ( len(starturl) < 1 ) : starturl = 'http://www.dr-chuck.com/'
-    if ( starturl.endswith('/') ) : starturl = starturl[:-1]
+    if ( len(starturl) < 1 ) :
+        starturl = 'http://www.dr-chuck.com/'
+    if ( starturl.endswith('/') ) :
+        starturl = starturl[:len(starturl)-1]
     web = starturl
     if ( starturl.endswith('.htm') or starturl.endswith('.html') ) :
         pos = starturl.rfind('/')
@@ -89,7 +91,7 @@ while True:
 
         print('('+str(len(html))+')', end=' ')
 
-        soup = BeautifulSoup(html, "html.parser")
+        soup = bs4(html, 'html.parser')
     except KeyboardInterrupt:
         print('')
         print('Program interrupted by user...')
